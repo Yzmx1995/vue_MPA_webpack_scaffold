@@ -1,0 +1,59 @@
+{
+  "name": "vue-spa-webpack-scaffold",
+  "version": "1.0.0",
+  "description": "vue+webpack搭建的SPA(single page web application)脚手架",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --progress --config build/webpack.dev.conf.js",
+    "start": "npm run dev",
+    "build:test": "npm run clean && cross-env NODE_ENV=test node build/build.js",
+    "build": "npm run clean && node build/build.js",
+    "clean": "rm -rf dist && rm -f dist.zip"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^9.6.1",
+    "axios": "^0.19.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "7.1.1",
+    "babel-plugin-transform-runtime": "6.22.0",
+    "babel-polyfill": "6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-runtime": "^6.26.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "cross-env": "^5.2.0",
+    "css-loader": "^0.28.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^4.1.0",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
+    "node-notifier": "^5.4.1",
+    "ora": "^3.4.0",
+    "postcss-import": "^11.0.0",
+    "postcss-loader": "^2.0.8",
+    "postcss-url": "^7.2.1",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^1.1.1",
+    "url-loader": "^2.1.0",
+    "vue-loader": "^13.7.3",
+    "vue-style-loader": "^3.0.1",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "3.6.0",
+    "webpack-dev-server": "2.9.1",
+    "webpack-merge": "^4.2.1"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "vue": "^2.5.2",
+    "vue-router": "^3.0.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
+}
