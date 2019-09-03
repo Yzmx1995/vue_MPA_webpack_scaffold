@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const path = require('path');
-const { handleAssetsPath } = require('./utils');
+const { handleAssetsPath, getMultiEntry } = require('./utils');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const config = require('../config');
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;   // add "webpack-bundle-analyzer": "^3.4.1" in package.json
@@ -22,18 +22,6 @@ const prodWebpackConfig = {
             },
             sourceMap: config.build.productionSourceMap,
             parallel: true
-        }),
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: path.resolve(__dirname, '../index.html'),
-            inject: true,
-            minify: {
-                removeComments: true,   // remove HTML comments	
-                removeAttributeQuotes: true, // remove the quotes from the attribute
-                collapseWhitespace: true,   //collapse white space that contributes to text nodes in a document tree
-            },
-            chunks: ['manifest', 'vendor', 'main'],  // used for multiple entry 
-            chunksSortMode: 'dependency'
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
@@ -56,6 +44,24 @@ const prodWebpackConfig = {
         // new BundleAnalyzerPlugin()
     ]
 };
+
+const pages = getMultiEntry('./src/views/**/*.html')
+for (var page in pages) {
+    // 配置生成的html文件，定义路径等
+    var conf = {
+        filename: page + '.html',
+        template: pages[page], //模板路径
+        inject: true,
+        chunks: ['manifest', 'vendor', page],
+        minify: {
+            removeComments: true,
+            collapseWhitespace: true,
+            removeAttributeQuotes: true
+        },
+        chunksSortMode: 'dependency'
+    }
+    prodWebpackConfig.plugins.push(new HtmlWebpackPlugin(conf))
+}
 
 const webpackConfig = merge(baseWebpackConfig, prodWebpackConfig);
 

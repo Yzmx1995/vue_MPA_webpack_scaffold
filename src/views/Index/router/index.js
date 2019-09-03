@@ -10,13 +10,21 @@ const router = new Router({
             name: 'page@Index',
             meta: { name: 'Index' },
             component: () =>
-                import('@/views/HelloWorld.vue')
+                import('@/views/index/components/HelloWorld.vue')
+        },
+        {
+            path: '/test',
+            name: 'page@test',
+            meta: { name: 'test' },
+            component: () =>
+                import('@/views/index/components/test.vue')
         },
         {
             path: '*',
             name: 'error@NotFoundPage',
+            meta: { name: 'ErrorPage' },
             component: () =>
-                import('@/views/Error.vue')
+                import('@/views/index/components/ErrorPage.vue')
         }
     ],
     mode: `${process.env.NODE_ENV === 'production' ? 'hash' : 'history'}`

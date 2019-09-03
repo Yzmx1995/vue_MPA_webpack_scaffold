@@ -1,11 +1,11 @@
 const baseWebpackConfig = require('./webpack.base.conf');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin-for-multihtml');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const path = require('path');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const config = require('../config');
-const { createNotifierCallback } = require('./utils');
+const { createNotifierCallback, getMultiEntry } = require('./utils');
 
 /**
  * @desc handle webpack-dev-server proxy
@@ -39,11 +39,6 @@ function proxyTable(proxyConfig) {
 
 const devWebpackConfig = {
     plugins: [
-        new HtmlWebpackPlugin({
-            filename: 'index.html',
-            template: path.resolve(__dirname, '../index.html'),
-            inject: true
-        }),
         new FriendlyErrorsPlugin({
             compilationSuccessInfo: {   // compile success info
                 messages: [`Your application is running here: http://${config.dev.host}:${config.dev.port}`],
@@ -78,5 +73,18 @@ const devWebpackConfig = {
         // },
     }
 };
+const pages = getMultiEntry('./src/views/**/*.html');
+for (var page in pages) {
+    // 配置生成的html文件，定义路径等
+    var conf = {
+        filename: page + '.html',
+        template: pages[page], // 模板路径
+        inject: true,
+        chunks: [page],
+        multihtmlCache: true
+    };
+    // 需要生成几个html文件，就配置几个HtmlWebpackPlugin对象
+    devWebpackConfig.plugins.push(new HtmlWebpackPlugin(conf));
+}
 const webpackConfig = merge(baseWebpackConfig, devWebpackConfig);
 module.exports = webpackConfig;

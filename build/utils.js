@@ -7,6 +7,8 @@ const packageConfig = require('../package.json');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ExtractRootCss = new ExtractTextPlugin({ filename: handleAssetsPath('style/root.[contenthash].css'), allChunks: false });
 const ExtractVueCss = new ExtractTextPlugin({ filename: handleAssetsPath('style/[name].[contenthash].css'), allChunks: true });
+const glob = require('glob');
+
 /**
  * handle assets path
  * @param {string} subPath sub path
@@ -38,6 +40,9 @@ function createNotifierCallback() {
     }
 }
 
+/**
+ * @desc handle style loader
+ */
 function styleLoaders(options) {
     const output = [];
     const loaders = cssLoaders(options);
@@ -48,7 +53,7 @@ function styleLoaders(options) {
             use: loader
         })
     }
-    if(options.isVue) {
+    if (options.isVue) {
         return output;
     } else {
         return {
@@ -59,6 +64,9 @@ function styleLoaders(options) {
     }
 }
 
+/**
+ * @desc handle css loader
+ */
 function cssLoaders(options) {
     options = options || {}
 
@@ -110,9 +118,22 @@ function cssLoaders(options) {
     }
 }
 
+/**
+ * @desc handle multiple entries
+ */
+function getMultiEntry(globPath) {
+    let entries = {}, basename, tmp, pathSrc;
+    glob.sync(globPath).forEach(entry => {
+        tmp = entry.split('/').splice(-2);  // 取后两个路径
+        entries[`${tmp[0] || ''}`] = entry;
+    });
+    return entries;
+}
+
 module.exports = {
     handleAssetsPath,
     createNotifierCallback,
     styleLoaders,
-    cssLoaders
+    cssLoaders,
+    getMultiEntry
 };

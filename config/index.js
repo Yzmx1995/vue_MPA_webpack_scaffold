@@ -16,8 +16,8 @@ module.exports = {
         assetsPublicPath: '/',
         env: 'development',
         notifyOnErrors: true,
-        host: 'dev-vue-spa-scaffold.yzmx.com',
-        port: 8088,
+        host: 'dev-vue-mpa-scaffold.yzmx.com',
+        port: 8089,
         proxy: {
             '/v1': 'https://staging-mp.leica-camera.cn/api/v1'
         },

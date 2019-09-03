@@ -1,5 +1,5 @@
 const path = require('path');
-const { handleAssetsPath, styleLoaders } = require('./utils');
+const { handleAssetsPath, styleLoaders, getMultiEntry } = require('./utils');
 const vueLoaderConfig = require('./vue-loader.conf');
 const configType = process.env.NODE_ENV === 'production' ? 'build' :
     process.env.NODE_ENV === 'test' ? 'test' : 'dev';
@@ -8,11 +8,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
 const baseWebpackConfig = {
-    entry: ['babel-polyfill', path.resolve(__dirname, '../src/main.js')],
+    entry: getMultiEntry('./src/views/**/main.js'),
     output: {
         path: path.resolve(__dirname, '../dist'),
-        filename: handleAssetsPath('js/[name].js'),
-        // publicPath: config[configType].assetsPublicPath
+        filename: handleAssetsPath('js/[name].js')
     },
     module: {
         rules: [
@@ -68,7 +67,7 @@ const baseWebpackConfig = {
         extensions: ['.js', '.vue', '.json'], // Omit the import file extension
         alias: {
             'vue$': 'vue/dist/vue.esm.js',
-            '@': path.join(__dirname, '../src'),
+            '@': path.join(__dirname, '../src')
         }
     }
 };
