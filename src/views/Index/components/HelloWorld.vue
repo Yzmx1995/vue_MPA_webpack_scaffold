@@ -1,5 +1,5 @@
 <template>
-    <div class="test-page-wrap">Hello World!</div>
+    <div class="test-page-wrap">Hello World in index</div>
 </template>
 
 <script>

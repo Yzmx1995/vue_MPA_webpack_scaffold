@@ -51,6 +51,7 @@ const devWebpackConfig = {
         clientLogLevel: 'warning',
         historyApiFallback: {
             rewrites: [
+                { from: /pageOne.*/, to: path.posix.join(config.dev.assetsPublicPath, 'pageOne.html') },
                 { from: /.*/, to: path.posix.join(config.dev.assetsPublicPath, 'index.html') },
             ],
         },

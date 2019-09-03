@@ -1,5 +1,5 @@
 <template>
-    <div>test111! in page One</div>
+    <div>otherRouter in page One</div>
 </template>
 
 <script>

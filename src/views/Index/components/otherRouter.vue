@@ -1,5 +1,5 @@
 <template>
-    <div>Hello World! in page One</div>
+    <div>otherRouter in index</div>
 </template>
 
 <script>

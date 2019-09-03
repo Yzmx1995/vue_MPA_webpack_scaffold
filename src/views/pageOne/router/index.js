@@ -4,20 +4,25 @@ import Router from 'vue-router';
 Vue.use(Router)
 
 const router = new Router({
+    mode: `${process.env.NODE_ENV === 'production' ? 'hash' : 'history'}`,
     routes: [
         {
             path: '/pageOne.html/',
-            name: 'page@test',
-            meta: { name: 'test' },
-            component: () =>
-                import('@/views/pageOne/components/test.vue')
+            redirect: '/pageOne'
         },
         {
-            path: '/pageOne.html/test',
-            name: 'page@test111',
-            meta: { name: 'test111' },
+            path: '/pageOne',
+            name: 'page@Hello',
+            meta: { name: 'hello' },
             component: () =>
-                import('@/views/pageOne/components/test111.vue')
+                import('@/views/pageOne/components/HelloWorld.vue')
+        },,
+        {
+            path: '/pageOne/other',
+            name: 'page@otherinpageone',
+            meta: { name: 'other' },
+            component: () =>
+                import('@/views/pageOne/components/otherRouter.vue')
         },
         {
             path: '*',
@@ -27,7 +32,6 @@ const router = new Router({
                 import('@/views/pageOne/components/ErrorPage.vue')
         }
     ],
-    mode: `${process.env.NODE_ENV === 'production' ? 'hash' : 'history'}`
 });
 
 router.beforeEach((to, from, next) => {

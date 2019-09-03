@@ -1,5 +1,5 @@
 <template>
-    <div class="error-page-wrap">ErrorPage</div>
+    <div class="error-page-wrap">ErrorPage in index</div>
 </template>
 
 <script>

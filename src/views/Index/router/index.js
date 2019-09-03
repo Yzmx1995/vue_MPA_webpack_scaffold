@@ -4,20 +4,21 @@ import Router from 'vue-router';
 Vue.use(Router)
 
 const router = new Router({
+    mode: `${process.env.NODE_ENV === 'production' ? 'hash' : 'history'}`,
     routes: [
         {
             path: '/',
-            name: 'page@Index',
-            meta: { name: 'Index' },
+            name: 'page@Hello',
+            meta: { name: 'hello' },
             component: () =>
                 import('@/views/index/components/HelloWorld.vue')
         },
         {
-            path: '/test',
-            name: 'page@test',
-            meta: { name: 'test' },
+            path: '/pageOne/other',
+            name: 'page@otherRouter',
+            meta: { name: 'otherRouter' },
             component: () =>
-                import('@/views/index/components/test.vue')
+                import('@/views/index/components/otherRouter.vue')
         },
         {
             path: '*',
@@ -27,7 +28,6 @@ const router = new Router({
                 import('@/views/index/components/ErrorPage.vue')
         }
     ],
-    mode: `${process.env.NODE_ENV === 'production' ? 'hash' : 'history'}`
 });
 
 router.beforeEach((to, from, next) => {
